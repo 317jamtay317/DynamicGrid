@@ -232,12 +232,30 @@ public partial class DynamicGridControl : UserControl
 
     private void UpdateRows(int oldValue, int newValue)
     {
-        
+        var information = ConfigureGrid
+            .CalculateLocationInformation(ConfigureButtonWidth,
+                GridGap,
+                ColumnCount,
+                newValue);
+        ConfigureGrid
+            .UpdateGridObjectCount(GridObjectType.Row,
+                newValue,
+                ConfigureBorderStyle(),
+                information);
     }
 
     private void UpdateColumns(int oldValue, int newValue)
     {
-        
+        var information = ConfigureGrid
+            .CalculateLocationInformation(ConfigureButtonWidth,
+                GridGap,
+                ColumnCount,
+                newValue);
+        ConfigureGrid
+            .UpdateGridObjectCount(GridObjectType.Row,
+                newValue,
+                ConfigureBorderStyle(),
+                information);
     }
 
     private void UpdateGridLines()
@@ -247,9 +265,14 @@ public partial class DynamicGridControl : UserControl
             GridGap,
             ColumnCount,
             RowCount);
-        var borderStyle = (Style)FindResource("DashedBorder");
+        var borderStyle = ConfigureBorderStyle();
 
         ConfigureGrid.InitDynamicGrid( information, borderStyle);
+    }
+
+    private Style ConfigureBorderStyle()
+    {
+        return (Style)FindResource("DashedBorder");
     }
 
     private const double ConfigureButtonWidth = 20.0;

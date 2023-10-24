@@ -6,8 +6,18 @@
         xmlns:local="clr-namespace:DynamicGrid.TestUi"
         xmlns:control="clr-namespace:DynamicGrid.Control;assembly=DynamicGrid.Control"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance {x:Type local:MainWindow}}">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <DockPanel>
+        <StackPanel Orientation="Vertical">
+            <Button Content="Add Row" Command="{Binding AddRowCommand}"></Button>
+            <Button Content="Add Column" Command="{Binding AddColumnCommand}"></Button>
+            <Button Content="Remove Row" Command="{Binding RemoveRowCommand}"></Button>
+            <Button Content="Remove Column" Command="{Binding RemoveColumnCommand}"></Button>
+        </StackPanel>
         <control:DynamicGridControl />
-    </Grid>
+    </DockPanel>
 </Window>
