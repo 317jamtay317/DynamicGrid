@@ -12,12 +12,16 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     <DockPanel>
-        <StackPanel Orientation="Vertical">
-            <Button Content="Add Row" Command="{Binding AddRowCommand}"></Button>
-            <Button Content="Add Column" Command="{Binding AddColumnCommand}"></Button>
-            <Button Content="Remove Row" Command="{Binding RemoveRowCommand}"></Button>
-            <Button Content="Remove Column" Command="{Binding RemoveColumnCommand}"></Button>
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+            <Button Content="Add Row" Command="{Binding AddRowCommand}"/>
+            <Button Content="Add Column" Command="{Binding AddColumnCommand}"/>
+            <Button Content="Remove Row" Command="{Binding RemoveRowCommand}"/>
+            <Button Content="Remove Column" Command="{Binding RemoveColumnCommand}"/>
+            <CheckBox IsChecked="{Binding IsConfigure, Mode=TwoWay}">Is Configure</CheckBox>
         </StackPanel>
-        <control:DynamicGridControl />
+        <control:DynamicGridControl 
+            ColumnCount="{Binding Columns}"
+            RowCount="{Binding Rows}"
+            IsConfigureMode="{Binding IsConfigure}"/>
     </DockPanel>
 </Window>

@@ -11,6 +11,10 @@ public class MainWindowViewModel : BindableBase
         AddRowCommand = new DelegateCommand(() => Rows++);
         RemoveRowCommand = new DelegateCommand(() => Rows--);
         RemoveColumnCommand = new DelegateCommand(() => Columns--);
+
+        Columns = 6;
+        Rows = 5;
+        IsConfigure = true;
     }
     public int Columns
     {
@@ -21,6 +25,12 @@ public class MainWindowViewModel : BindableBase
     public int Rows
     {
         get => GetValue<int>();
+        set => SetValue(value);
+    }
+
+    public bool IsConfigure
+    {
+        get => GetValue<bool>();
         set => SetValue(value);
     }
     

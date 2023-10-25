@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using DynamicGrid.Control.Helpers;
 using DynamicGrid.Control.Models;
 
@@ -218,6 +216,11 @@ public partial class DynamicGridControl : UserControl
     {
         if (d is DynamicGridControl gridControl)
         {
+            if ((int)e.NewValue < 1)
+            {
+                gridControl.ColumnCount = 1;
+                return;
+            }
             gridControl.UpdateColumns((int)e.OldValue, (int)e.NewValue);
         }
     }
@@ -226,12 +229,18 @@ public partial class DynamicGridControl : UserControl
     {
         if (d is DynamicGridControl gridControl)
         {
+            if ((int)e.NewValue < 1)
+            {
+                gridControl.RowCount = 1;
+                return;
+            }
             gridControl.UpdateRows((int)e.OldValue, (int)e.NewValue);
         }
     }
 
     private void UpdateRows(int oldValue, int newValue)
     {
+        if(!ConfigureGrid.IsLoaded) return;
         var information = ConfigureGrid
             .CalculateLocationInformation(ConfigureButtonWidth,
                 GridGap,
@@ -246,13 +255,14 @@ public partial class DynamicGridControl : UserControl
 
     private void UpdateColumns(int oldValue, int newValue)
     {
+        if(!ConfigureGrid.IsLoaded) return;
         var information = ConfigureGrid
             .CalculateLocationInformation(ConfigureButtonWidth,
                 GridGap,
-                ColumnCount,
-                newValue);
+                newValue,
+                RowCount);
         ConfigureGrid
-            .UpdateGridObjectCount(GridObjectType.Row,
+            .UpdateGridObjectCount(GridObjectType.Column,
                 newValue,
                 ConfigureBorderStyle(),
                 information);
